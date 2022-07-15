@@ -1,10 +1,7 @@
-import json, requests, os
-import geopandas as gpd
-import pandas as pd
+import requests
 import pycountry
+import geopandas as gpd
 from datetime import date
-from shapely.geometry import Point, Polygon, MultiPolygon, shape
-from pyspark.sql.functions import udf
 from sedona.register import SedonaRegistrator 
 from sedona.sql.types import GeometryType
 from pyspark.sql.types import StructType, StructField, StringType
