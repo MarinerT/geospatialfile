@@ -86,8 +86,8 @@ class GeoBoundary(GeoFile):
         return gdf
     
     def to_pyspark(self):
-        from spark import spark
-        SedonaRegistrator.registerAll(spark)
+        import .module_spark
+        SedonaRegistrator.registerAll(module_spark.spark)
         
         gdf = self.to_geopandas()
         sparkGDF = spark.createDataFrame(gdf, schema = self.schema)

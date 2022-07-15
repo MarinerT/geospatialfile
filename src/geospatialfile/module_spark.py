@@ -2,7 +2,7 @@ import shutil, os
 import pyspark
 from pyspark.sql import SparkSession
 
-#spark = SparkSession.builder.getOrCreate()
+spark = SparkSession.builder.getOrCreate()
 
 def get_db_utils(spark):
     '''
