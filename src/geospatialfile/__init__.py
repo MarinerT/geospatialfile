@@ -1,1 +1,1 @@
-from .geospatial import *
+from .geospatialfile import *
