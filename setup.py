@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.1' 
-DESCRIPTION = 'Pulls GeoSpatial data from GeoBoundaries'
+VERSION = '0.0.2' 
+DESCRIPTION = 'Pulls geospatial data from GeoBoundaries'
 
 # Setting up
 setup(
