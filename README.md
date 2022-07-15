@@ -1,6 +1,6 @@
 # geoboundaries
 
-This is developing python code/package where one can enter a country name, two-digit or three-digit alpha iso code and pull the geospatial boundaries from GeoBoundaries.org. https://www.geoboundaries.org
+This is developing python code/package where one can enter a country name, two-digit or three-digit alpha iso code and pull the historical geospatial boundaries from GeoBoundaries.org. https://www.geoboundaries.org
 
 ### Use
 
