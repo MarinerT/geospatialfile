@@ -6,7 +6,7 @@ from sedona.register import SedonaRegistrator
 from sedona.sql.types import GeometryType
 from pyspark.sql.types import StructType, StructField, StringType
 from requests.exceptions import HTTPError
-import .module_spark as ms
+import module_spark as ms
 
 
 spark = ms.spark
