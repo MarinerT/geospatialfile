@@ -92,12 +92,7 @@ class GeoBoundary(GeoFile):
     def to_pyspark(self):
         SedonaRegistrator.registerAll(spark)
         
-        gdf = self.to_geopandas()
-        sparkGDF = spark.createDataFrame(gdf, schema = self.schema)
-        return sparkGDF
-    
-    def schema(self):
-        schema =  StructType([
+        schema = StructType([
             StructField('geometry', GeometryType())
             , StructField('shapeName', StringType())
             , StructField('shapeISO', StringType())
@@ -105,4 +100,7 @@ class GeoBoundary(GeoFile):
             , StructField('shapeGroup', StringType() )
             , StructField('shapeType', StringType())
         ])
-        return schema
+        
+        gdf = self.to_geopandas()
+        sparkGDF = spark.createDataFrame(gdf, schema = schema)
+        return sparkGDF
