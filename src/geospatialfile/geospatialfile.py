@@ -6,10 +6,6 @@ from sedona.register import SedonaRegistrator
 from sedona.sql.types import GeometryType
 from pyspark.sql.types import StructType, StructField, StringType
 from requests.exceptions import HTTPError
-import geospatialfile.module_spark as ms
-
-
-spark = ms.spark
 
 class Country:
     
@@ -46,19 +42,31 @@ class Response:
 
     def get(self, archive=True):
         request = self.format_request(archive)
-        try:
-            r = requests.get(request)
-            r.raise_for_status()
-        except HTTPError as http_err:
-            logger.  error(f'HTTP error occurred: {http_err}')  
-        except Exception as err:
-            logger.error(f'Other error occurred: {err}')  
+        if archive:
+            try:
+                r = requests.get(request)
+                r.raise_for_status()
+            except HTTPError as http_err:
+                logger.  error(f'HTTP error occurred: {http_err}')  
+            except Exception as err:
+                logger.error(f'Other error occurred: {err}')  
+            else:
+                return r.json()[0]
         else:
-            return r.json()[0]
+            try:
+                r = requests.get(request)
+                r.raise_for_status()
+            except HTTPError as http_err:
+                logger.  error(f'HTTP error occurred: {http_err}')  
+            except Exception as err:
+                logger.error(f'Other error occurred: {err}')  
+            else:
+                return r.json()[
         
 class GeoFile:
     
-    def __init__(self, string):
+    def __init__(self, string, adm="ADM1"):
+        self.adm = adm
         self.alpha_3 = Country(string).get().alpha_3
         self.response = Response().set_params({"alpha_3": self.alpha_3}).get()
 
@@ -89,7 +97,8 @@ class GeoBoundary(GeoFile):
         gdf = gpd.GeoDataFrame.from_features(boundaries)
         return gdf
     
-    def to_pyspark(self):
+    def to_pyspark(self, spark):
+        
         SedonaRegistrator.registerAll(spark)
         
         schema = StructType([
