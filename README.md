@@ -4,6 +4,10 @@ This is developing python code/package where one can enter a country name, two-d
 
 ### Use
 
+``` bash
+pip install git+https://github.com/marinert/geospatialfile.git
+```
+
 ```python
 from geospatialfile import GeoBoundary
 egypt = GeoBoundary('Egypt')
