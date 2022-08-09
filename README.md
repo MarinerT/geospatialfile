@@ -11,7 +11,7 @@ egypt = GeoBoundary('Egypt')
 # output formats available
 egypt_gdf = egypt.to_geopandas()
 egypt_json = egypt.to_json()
-egypt_ps = egypt.to_pyspark()
+egypt_ps = egypt.to_pyspark(spark) # in a spark environment like Databricks
 
 #inputs 
 egypt_string = "Egypt" # fuzzy search
