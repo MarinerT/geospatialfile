@@ -14,7 +14,7 @@ setup(
         name="geospatialfile", 
         version=VERSION,
         author="Todd Marino",
-        author_email="<marino_todd.com>",
+        author_email="<marino.todd@gmail.com>",
         description=DESCRIPTION,
         packages=find_packages(),
         install_requires=['pycountry', 'apache-sedona', 'pyspark', 'geopandas' ],
