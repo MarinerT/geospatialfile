@@ -61,7 +61,7 @@ class Response:
             except Exception as err:
                 logger.error(f'Other error occurred: {err}')  
             else:
-                return r.json()[
+                return r.json()
         
 class GeoFile:
     
