@@ -22,3 +22,7 @@ egypt_string = "Egypt" # fuzzy search
 egypt_string = "EG" # 2 char ISO alpha code
 egypt_string = "EGY" # 3 char ISO alpha code
 ```
+#### How to create your own package
+
+try these tutorials:
+https://python-packaging-tutorial.readthedocs.io/en/latest/setup_py.html
