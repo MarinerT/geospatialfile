@@ -9,22 +9,33 @@ from requests.exceptions import HTTPError
 
 class Country:
     
-    def __init__(self, string):
+    def __init__(self, string) -> None:
         self.string = string
     
-    def get(self):
+    def __decipher_string(self) -> str:
+        ''' takes the given string and figures out if it's 2 character
+        3 character ISO, and if not 2 or 3 characters, then looks up Name'''
         codes = {2: "alpha_2", 3:"alpha_3"}
-        key = codes[len(self.string)] if len(self.string) == 2 or len(self.string) == 3 else "name"
+        string_length = len(self.string)
+        key = codes[string_length] if string_length == 2 or string_length == 3 else "name"
+        return key
+
+    def __set(self):
+        key = self.__decipher_string()
         setattr(self, key, self.string)
         delattr(self, 'string')
-        
+
+    @property
+    def fetch(self) -> str:
+        '''looks up the country info based on on the set up''' 
+        self.__set()
         try: 
-            if key == "name":
+            if "name" in self.__dict__:
                 return pycountry.countries.search_fuzzy(self.__dict__['name'])[0]
             else:
                 return pycountry.countries.get(**self.__dict__)
-        except Exception as e:
-            print(e)
+        except ValueError as e:
+            print("No results found in 2 or 3 character ISO code or name for the given input.")
 
 class Response:
     def set_params(self, kwargs):
@@ -42,26 +53,19 @@ class Response:
 
     def get(self, archive=True):
         request = self.format_request(archive)
-        if archive:
-            try:
-                r = requests.get(request)
-                r.raise_for_status()
-            except HTTPError as http_err:
-                logger.  error(f'HTTP error occurred: {http_err}')  
-            except Exception as err:
-                logger.error(f'Other error occurred: {err}')  
-            else:
-                return r.json()[0]
+        try:
+            r = requests.get(request)
+            r.raise_for_status()
+        except HTTPError as http_err:
+            logger.  error(f'HTTP error occurred: {http_err}')  
+        except Exception as err:
+            logger.error(f'Other error occurred: {err}')  
         else:
-            try:
-                r = requests.get(request)
-                r.raise_for_status()
-            except HTTPError as http_err:
-                logger.  error(f'HTTP error occurred: {http_err}')  
-            except Exception as err:
-                logger.error(f'Other error occurred: {err}')  
-            else:
-                return r.json()
+            results = r.json()
+            
+        if archive:
+            return results[0]
+        return results
         
 class GeoFile:
     

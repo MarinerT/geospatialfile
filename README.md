@@ -1,4 +1,4 @@
-# geospatialfile
+# geoboundaries
 
 This is developing python code/package where one can enter a country name, two-digit or three-digit alpha iso code and pull the historical geospatial boundaries from GeoBoundaries.org. https://www.geoboundaries.org
 
@@ -8,7 +8,21 @@ This is developing python code/package where one can enter a country name, two-d
 pip install git+https://github.com/marinert/geospatialfile.git
 ```
 
+#### **<span style="color:blue">class</span> Country**
+
+Country is an extension of the pycountry package found [here on Pypi](https://pypi.org/project/pycountry/). One enters a two character or three character ISO or a name and it returns the Country namedtuple-like response from pycountry. If the ISO codes are not found then it returns a ValueError. Any other character length, it'll find the most similar.
+
 ```python
+
+from geoboundaries import Country
+
+country = Country("EGY").fetch 
+# Example of the Return > Country(alpha_2='EG', alpha_3='EGY', flag='🇪🇬', name='Egypt', numeric='818', official_name='Arab Republic of Egypt')
+```
+
+#### **<span style="color:blue">class</span> Response**
+
+```
 from geospatialfile import GeoBoundary
 egypt = GeoBoundary('Egypt')
 
